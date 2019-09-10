@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 
 const linkStyle = {
-   color: '#3b3b3b',
+   color: '#4f92c9',
    textDecoration: 'underline'
 }
 

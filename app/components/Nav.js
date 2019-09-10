@@ -35,12 +35,12 @@ export default function Nav () {
                   </li>
                </ul>
                <button
-                  className="btn-clear"
+                  className="btn btn-clear"
                   onClick={toggleTheme}
                >
                   {theme === 'dark'
                      ? <FaSun size={24} color={'#dadada'}/>
-                     : <FaMoon size={24} />
+                     : <FaMoon size={24} color={'#1c2022'} />
                   }
                </button>
             </nav>
