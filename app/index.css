@@ -3,7 +3,7 @@ Styles for my hacker news clone
 */
 
 body {
-   font-family: 'Courier New', Courier, monospace;
+   font-family: Monaco;
    font-size: 14px;
 }
 
@@ -56,7 +56,12 @@ li {
 
 .post-title a {
    font-weight: bold;
-   color: #32a852;
+   color: #20838a;
    text-decoration: none;
+   font-size: 16px;
+}
+
+.post-info {
+   font-family: Arial, Helvetica, sans-serif
 }
 
