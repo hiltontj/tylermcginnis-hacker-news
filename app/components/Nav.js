@@ -1,6 +1,7 @@
 import React from 'react'
 import { ThemeConsumer } from '../contexts/theme'
 import { NavLink } from 'react-router-dom'
+import { FaSun, FaMoon } from 'react-icons/fa'
 
 const activeStyle = {
    color: "#20838a"
@@ -33,6 +34,15 @@ export default function Nav () {
                      </NavLink>
                   </li>
                </ul>
+               <button
+                  className="btn-clear"
+                  onClick={toggleTheme}
+               >
+                  {theme === 'dark'
+                     ? <FaSun size={24} color={'#dadada'}/>
+                     : <FaMoon size={24} />
+                  }
+               </button>
             </nav>
          )}
       </ThemeConsumer>
