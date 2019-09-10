@@ -7,6 +7,10 @@ body {
    font-size: 14px;
 }
 
+a {
+   text-decoration: none;
+}
+
 .dark {
    color: #dadada;
    background: #1c2022;
@@ -20,6 +24,11 @@ li {
 .row {
    display: flex;
    flex-direction: row;
+}
+
+.column {
+   display: flex;
+   flex-direction: column;
 }
 
 .space-between {
@@ -40,3 +49,14 @@ li {
 .nav li {
    margin-right: 10px;
 }
+
+.post {
+   margin-bottom: 1em;
+}
+
+.post-title a {
+   font-weight: bold;
+   color: #32a852;
+   text-decoration: none;
+}
+
