@@ -18,7 +18,7 @@ function renderPost (definition) {
    return (
       <li key={definition.id} className="post">
          <div className="post-title">
-            <a href={definition.url}>{definition.title}</a>
+            <a href={definition.url} target="_blank">{definition.title}</a>
          </div>
          <div className="post-info">
             <span>by </span>
