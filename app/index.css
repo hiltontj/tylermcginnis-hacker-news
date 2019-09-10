@@ -11,6 +11,7 @@ html, body, #app {
 body {
    font-family: Monaco;
    font-size: 14px;
+   background: #fffaf3;
 }
 
 a {
