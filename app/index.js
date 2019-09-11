@@ -4,6 +4,7 @@ import './index.css'
 import Nav from './components/Nav'
 import { ThemeProvider } from './contexts/theme'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Loading from './components/Loading';
 
 // Include Lazy Routes:
 const Stories  = React.lazy(() => import('./components/Stories.js'))
@@ -29,7 +30,7 @@ class App extends React.Component {
                   <div className="container">
                      <Nav />
 
-                     <React.Suspense fallback={<div>Loading...</div>}>
+                     <React.Suspense fallback={<Loading />}>
                         <Switch>
                            <Route exact path='/' render={() => (
                               <Stories type='top' />
@@ -37,6 +38,7 @@ class App extends React.Component {
                            <Route exact path='/new' render={() => (
                               <Stories type='new' />
                            )} />
+                           <Route exact path='/user/:userId' component={User} />
                            <Route render={() => (<h1>404 Not Found.</h1>)} />
                         </Switch>
                      </React.Suspense>

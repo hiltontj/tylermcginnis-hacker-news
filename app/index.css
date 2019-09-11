@@ -17,6 +17,11 @@ body {
 a {
    text-decoration: none;
 }
+.container {
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 50px;
+}
 
 .dark {
    color: #dadada;
@@ -51,6 +56,10 @@ li {
    font-weight: bold;
    text-decoration: none;
    color: inherit;
+}
+
+ul {
+   padding: 0;
 }
 
 .nav li {
