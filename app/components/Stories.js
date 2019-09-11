@@ -7,7 +7,7 @@ import Loading from './Loading';
 export default class Stories extends React.Component {
    state = {
       posts : [],
-      error: null
+      error: null // todo - currently not used
    }
 
    componentDidMount() {
@@ -43,9 +43,11 @@ export default class Stories extends React.Component {
       const { posts } = this.state
       return (
          <React.Fragment>
-            { ! this.isLoading() 
-               ? <Posts posts={posts} />
-               : <Loading text="Loading Stories" />}
+            {
+               this.isLoading() 
+                  ? <Loading text="Loading Stories" />
+                  : <Posts posts={posts} />
+            }
          </React.Fragment>
       )
    }
