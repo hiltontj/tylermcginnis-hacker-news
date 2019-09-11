@@ -1,17 +1,17 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { fetchMainPosts } from '../utils/hacker-news-api'
 import Posts from './Posts'
 import Loading from './Loading';
 
 export default class Stories extends React.Component {
    state = {
-      type : this.props.type,
       posts : [],
       error: null
    }
 
    componentDidMount() {
-      const { type } = this.state
+      const { type } = this.props
       this.updatePosts(type)
    }
 
@@ -49,4 +49,8 @@ export default class Stories extends React.Component {
          </React.Fragment>
       )
    }
+}
+
+Stories.propTypes = {
+   type : PropTypes.string.isRequired
 }
