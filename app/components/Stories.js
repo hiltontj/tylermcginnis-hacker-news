@@ -1,6 +1,7 @@
 import React from 'react'
 import { fetchMainPosts } from '../utils/hacker-news-api'
 import Posts from './Posts'
+import Loading from './Loading';
 
 export default class Stories extends React.Component {
    state = {
@@ -44,7 +45,7 @@ export default class Stories extends React.Component {
          <React.Fragment>
             { ! this.isLoading() 
                ? <Posts posts={posts} />
-               : <div>Loading...</div>}
+               : <Loading text="Loading Stories" />}
          </React.Fragment>
       )
    }
