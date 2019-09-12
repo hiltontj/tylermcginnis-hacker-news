@@ -38,8 +38,11 @@ export function fetchComments (ids) {
 }
 
 /* Get the list of posts from an array of their IDs
+ * - added a limit for users that have ungodly number of posts.
  */
-export function fetchPosts (ids) {
+export function fetchPosts (ids, limit) {
+  limit = limit || 50
+  ids.splice(limit)
   return Promise.all(ids.map(fetchItem))
     .then((posts) => removeDeleted(onlyPosts(removeDead(posts))))
 }

@@ -15,22 +15,23 @@ function getDateFromEpoch(epoch) {
 }
 
 function renderPost (definition) {
+   const { id, url, title, by, time, kids } = definition
    return (
-      <li key={definition.id} className="post">
+      <li key={id} className="post">
          <div className="post-title">
-            <a href={definition.url} target="_blank">{definition.title}</a>
+            <a href={url} target="_blank">{title}</a>
          </div>
          <div className="post-info">
             <span>by </span>
             <Link 
-               to={{ pathname: `/user/${definition.by}` }}
+               to={{ pathname: `/user/${by}` }}
                style={linkStyle}
-            >{definition.by}</Link>
-            <span> on {getDateFromEpoch(definition.time)} with </span>
+            >{by}</Link>
+            <span> on {getDateFromEpoch(time)} with </span>
             <Link 
-               to={{ pathname: `/comments/${definition.id}` }}
+               to={{ pathname: `/comments/${id}` }}
                style={linkStyle}
-            >{definition.kids ? definition.kids.length : 0}</Link>
+            >{kids ? kids.length : 0}</Link>
             <span> comments</span>
          </div>
       </li>

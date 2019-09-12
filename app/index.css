@@ -17,6 +17,7 @@ body {
 a {
    text-decoration: none;
 }
+
 .container {
    max-width: 1200px;
    margin: 0 auto;
@@ -73,7 +74,6 @@ ul {
 .post-title a {
    font-weight: bold;
    color: #20838a;
-   text-decoration: none;
    font-size: 16px;
 }
 
@@ -88,4 +88,22 @@ ul {
 .btn-clear {
    border: none;
    background: none;
+}
+
+.comments-title {
+   font-weight: bold;
+   color: #20838a;
+   font-size: 32px;
+}
+
+.comment {
+   border-radius: 4px;
+   background-color: #e6e1da;
+   border: none;
+   padding: 10px;
+   margin-bottom: 8px;
+}
+
+.comment-dark {
+   background-color: #25292b;
 }

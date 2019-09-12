@@ -39,6 +39,7 @@ class App extends React.Component {
                               <Stories type='new' />
                            )} />
                            <Route exact path='/user/:userId' component={User} />
+                           <Route exact path='/comments/:postId' component={Comments} />
                            <Route render={() => (<h1>404 Not Found.</h1>)} />
                         </Switch>
                      </React.Suspense>
