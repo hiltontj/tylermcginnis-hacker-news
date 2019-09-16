@@ -51,7 +51,7 @@ function Comment({definition}) {
                   <Link to={`/user/${by}`} style={linkStyle}>{by}</Link>
                   <span>, {getDateFromEpoch(time)}</span>
                </p>
-               <p>{text}</p>
+               <p dangerouslySetInnerHTML={{__html : text}} />
             </div>
          )}
       </ThemeConsumer>

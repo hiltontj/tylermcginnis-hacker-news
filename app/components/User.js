@@ -15,11 +15,16 @@ function UserInfo (props) {
    return (
       <div className="user-info">
          <h2>{id}</h2>
-         <p>Created on {getDateFromEpoch(created)}</p>
-         <p>Karma: {karma}</p>
+         <h4>
+            <span>joined on {getDateFromEpoch(created)}</span>
+            <span>, has {karma} karma</span>
+         </h4>
          {
             about != null && 
-            <p>About: <span dangerouslySetInnerHTML={{__html : about}}></span></p>
+            <p>
+               <span><strong>About:</strong> </span>
+               <span dangerouslySetInnerHTML={{__html : about}}></span>
+            </p>
          }
       </div>
    )
@@ -70,7 +75,7 @@ export default class User extends React.Component {
             {
                this.isLoadingPosts()
                   ? <Loading text="Loading User Posts" />
-                  : <Posts posts={posts}/>
+                  : <Posts posts={posts} title="Posts"/>
             }
             </div>
          </React.Fragment>

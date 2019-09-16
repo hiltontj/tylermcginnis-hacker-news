@@ -90,7 +90,7 @@ ul {
    background: none;
 }
 
-.comments-title {
+.posts-title , .comments-title, .user-info h2 {
    font-weight: bold;
    color: #20838a;
    font-size: 32px;

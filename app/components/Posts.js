@@ -39,11 +39,17 @@ function renderPost (definition) {
 }
 
 export default function Posts (props) {
-   const { posts } = props
+   const { posts, title } = props
    return (
-      <ul className="column">
-         {posts.map((item) => renderPost(item))}
-      </ul>
+      <React.Fragment>
+         {
+            title !== null &&
+            <h2 className="posts-title">{title}</h2>
+         }
+         <ul className="column">
+            {posts.map((item) => renderPost(item))}
+         </ul>
+      </React.Fragment>
    )
 }
 
