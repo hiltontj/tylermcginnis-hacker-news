@@ -2,8 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { fetchItem, fetchComments } from '../utils/hacker-news-api'
 import Loading from './Loading';
-import { ThemeConsumer } from '../contexts/theme';
-
+import ThemeContext from '../contexts/theme';
 
 const linkStyle = {
    color: '#4f92c9',
@@ -20,8 +19,7 @@ const aStyle = {
    color: '#20838a'
 }
 
-function CommentHeader({post}) {
-   const { title, url, by, time, kids } = post
+function CommentHeader({ title, url, by, time, kids }) {
    return (
       <div className="comment-header">
          <div className="comments-title"><a style={aStyle} href={url} target="_blank">{title}</a></div>
@@ -39,79 +37,53 @@ function CommentHeader({post}) {
    )
 }
 
-function Comment({definition}) {
-   const { id, by, time, text } = definition
-   console.log(definition)
+function Comment({ by, time, text }) {
+   const theme = React.useContext(ThemeContext)
+
    return (
-      <ThemeConsumer>
-         {({theme}) => (
-            <div className={`comment${theme === 'dark' ? " comment-dark" : ""}`}>
-               <p>
-                  <span>by </span>
-                  <Link to={`/user/${by}`} style={linkStyle}>{by}</Link>
-                  <span>, {getDateFromEpoch(time)}</span>
-               </p>
-               <p dangerouslySetInnerHTML={{__html : text}} />
-            </div>
-         )}
-      </ThemeConsumer>
-      
+      <div className={`comment${theme === 'dark' ? " comment-dark" : ""}`}>
+         <p>
+            <span>by </span>
+            <Link to={`/user/${by}`} style={linkStyle}>{by}</Link>
+            <span>, {getDateFromEpoch(time)}</span>
+         </p>
+         <p dangerouslySetInnerHTML={{__html : text}} />
+      </div>
    )
 }
 
-export default class Comments extends React.Component {
-   state = {
-      post : null,
-      comments : []
-   }
+export default function Comments({ match : { params : { postId } } }) {
+   const [post, setPost] = React.useState(null)
+   const [comments, setComments] = React.useState(null)
 
-   componentDidMount() {
-      const { match : { params : { postId } } } = this.props
+   React.useEffect(() => {
       fetchItem(postId)
          .then((item) => {
-            this.setState({
-               post : item
-            })
+            setPost(item)
             return fetchComments(item.kids)
          })
-         .then((results) => {
-            this.setState( ({comments}) => ({ comments : comments.concat(results)}))
-         })
-   }
+         .then((result) => setComments(result))
+   }, [postId])
 
-   isLoadingPost() {
-      const { post } = this.state
-      return post === null
-   }
-
-   isLoadingComments() {
-      const { comments } = this.state
-      return comments.length === 0
-   }
-
-   render() {
-      const { post, comments } = this.state
-      console.log(comments)
-      return (
-         <React.Fragment>
-            {
-               this.isLoadingPost()
-                  ? <Loading />
-                  : <CommentHeader post={post} />
-            }
-            {
-               this.isLoadingComments()
-                  ? <Loading text="Loading Comments" />
-                  : (
-                     <ul className="comments-list">
-                        {comments.map((item) => (
-                           <li key={item.id}><Comment definition={item}/></li>
-                        ))}
-                     </ul>
-                  )
-                  
-            }
-         </React.Fragment>
-      )
-   }
+   return (
+      <React.Fragment>
+         {
+            post === null
+               ? <Loading />
+               : <CommentHeader {...post} />
+         }
+         {
+            comments === null
+               ? <Loading text="Loading Comments" />
+               : (
+                  <ul className="comments-list">
+                     {comments.map((item) => (
+                        <li key={item.id}><Comment {...item}/></li>
+                     ))}
+                  </ul>
+               )
+               
+         }
+      </React.Fragment>
+   )
 }
