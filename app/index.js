@@ -11,44 +11,40 @@ const Stories  = React.lazy(() => import('./components/Stories.js'))
 const User     = React.lazy(() => import('./components/User.js'))
 const Comments = React.lazy(() => import('./components/Comments.js'))
 
-class App extends React.Component {
-   state = {
-      theme: 'light',
-      toggleTheme: () => {
-         console.log("toggle theme")
-         this.setState( ({theme}) => ({
-            theme : theme === 'dark' ? 'light' : 'dark'
-         }))
-      }
+function App() {
+   const [theme, setTheme] = React.useState('light')
+
+   const toggleTheme = () => {
+      setTheme((theme) => {
+         return theme === 'light' ? 'dark' : 'light'
+      })
    }
 
-   render() {
-      return (
-         <Router>
-            <ThemeProvider value={this.state}>
-               <div className={this.state.theme}>
-                  <div className="container">
-                     <Nav />
+   return (
+      <Router>
+         <ThemeProvider value={theme}>
+            <div className={theme}>
+               <div className="container">
+                  <Nav toggleTheme={toggleTheme}/>
 
-                     <React.Suspense fallback={<Loading />}>
-                        <Switch>
-                           <Route exact path='/' render={() => (
-                              <Stories type='top' />
-                           )} />
-                           <Route exact path='/new' render={() => (
-                              <Stories type='new' />
-                           )} />
-                           <Route exact path='/user/:userId' component={User} />
-                           <Route exact path='/comments/:postId' component={Comments} />
-                           <Route render={() => (<h1>404 Not Found.</h1>)} />
-                        </Switch>
-                     </React.Suspense>
-                  </div>
+                  <React.Suspense fallback={<Loading />}>
+                     <Switch>
+                        <Route exact path='/' render={() => (
+                           <Stories type='top' />
+                        )} />
+                        <Route exact path='/new' render={() => (
+                           <Stories type='new' />
+                        )} />
+                        <Route exact path='/user/:userId' component={User} />
+                        <Route exact path='/comments/:postId' component={Comments} />
+                        <Route render={() => (<h1>404 Not Found.</h1>)} />
+                     </Switch>
+                  </React.Suspense>
                </div>
-            </ThemeProvider>
-         </Router>
-      )
-   }
+            </div>
+         </ThemeProvider>
+      </Router>
+   )
 }
 
 ReactDOM.render(
