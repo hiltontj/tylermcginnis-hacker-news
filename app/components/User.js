@@ -9,9 +9,7 @@ function getDateFromEpoch(epoch) {
    return date.toLocaleDateString()
 }
 
-function UserInfo (props) {
-   const { user : { id, created, karma, about } } = props
-   console.log(about)
+function UserInfo ({ id, created, karma, about }) {
    return (
       <div className="user-info">
          <h2>{id}</h2>
@@ -30,55 +28,39 @@ function UserInfo (props) {
    )
 }
 
-export default class User extends React.Component {
-   state = {
-      userInfo : null,
-      posts : []
-   }
+export default function User({ match : { params : { userId } } }) {
+   const [userInfo, setUserInfo] = React.useState(null)
+   const [userPosts, setUserPosts] = React.useState(null)
 
-   componentDidMount() {
-      const { match : { params : { userId } } } = this.props
+   React.useEffect(() => {
       fetchUser(userId)
          .then((user) => {
-            console.log(user)
-            this.setState( ({userInfo}) => ({ userInfo : user }) )
+            setUserInfo(user)
             return user.submitted
          })
          .then((ids) => fetchPosts(ids))
-         .then((results) => {
-            this.setState( ({posts}) => ({posts : posts.concat(results)}) )
+         .then((results) => setUserPosts(results))
+         .catch(() => {
+            throw new Error("an error happened when fetching user info")
          })
-   }
+   }, [userId])
 
-   isLoadingUser() {
-      const { userInfo } = this.state
-      return userInfo === null
-   }
-
-   isLoadingPosts() {
-      const { posts } = this.state
-      return posts.length === 0
-   }
-
-   render() {
-      const { userInfo, posts } = this.state
-      return (
-         <React.Fragment>
-            <div className="column">
-            {
-               this.isLoadingUser()
-                  ? <Loading text="Loading User Info" />
-                  : <UserInfo user={userInfo}/> 
-            }
-            </div>
-            <div className="column"> 
-            {
-               this.isLoadingPosts()
-                  ? <Loading text="Loading User Posts" />
-                  : <Posts posts={posts} title="Posts"/>
-            }
-            </div>
-         </React.Fragment>
-      )
-   }
+   return (
+      <React.Fragment>
+         <div className="column">
+         {
+            userInfo === null
+               ? <Loading text="Loading User Info" />
+               : <UserInfo {...userInfo}/> 
+         }
+         </div>
+         <div className="column"> 
+         {
+            userPosts === null
+               ? <Loading text="Loading User Posts" />
+               : <Posts posts={userPosts} title="Posts"/>
+         }
+         </div>
+      </React.Fragment>
+   )
 }
