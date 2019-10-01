@@ -3,7 +3,7 @@ This is my tylermcginnis.com hacker news clone React application. It is the fina
 
 ## React Hooks!
 
-_NOTE: I am refactoring this application to use React Hooks over the vanilla ES6 class components. `git checkout hooks` to see these changes._
+_I have finished refactoring this application to use React Hooks over the vanilla ES6 class components._
 
 ## Setup
 
