@@ -12,29 +12,22 @@ const styles = {
    }
 }
 
-export default class Loading extends React.Component {
-   state = {
-      content: this.props.text
-   }
+export default function Loading({ text="Loading", speed=300 }) {
+   const [content, setContent] = React.useState(text)
 
-   componentDidMount() {
-      const { text, speed } = this.props
-      this.interval = window.setInterval(() => {
-         this.state.content === text + '...'
-            ? this.setState( { content : text } )
-            : this.setState( ({ content }) => ({ content : content + '.' }) )
+   React.useEffect(() => {
+      const id = window.setInterval(() => {
+         setContent(
+            (c) => c === text + '...' 
+               ? text 
+               : c + '.'
+         )
       }, speed)
-   }
 
-   componentWillUnmount() {
-      window.clearInterval(this.interval)
-   }
+      return () => window.clearInterval(id)
+   })
 
-   render() {
-      return (
-         <div style={styles.content}>{this.state.content}</div>
-      )
-   }
+   return <div style={styles.content}>{content}</div>
 }
 
 Loading.propTypes = {

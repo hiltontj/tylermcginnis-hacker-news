@@ -14,8 +14,7 @@ function getDateFromEpoch(epoch) {
    return date.toLocaleString()
 }
 
-function renderPost (definition) {
-   const { id, url, title, by, time, kids } = definition
+function renderPost ({ id, url, title, by, time, kids }) {
    return (
       <li key={id} className="post">
          <div className="post-title">
@@ -38,8 +37,7 @@ function renderPost (definition) {
    )
 }
 
-export default function Posts (props) {
-   const { posts, title } = props
+export default function Posts ({ posts, title }) {
    return (
       <React.Fragment>
          {
